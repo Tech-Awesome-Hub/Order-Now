@@ -188,10 +188,10 @@
         function stickyHeader(){
             if(window.pageYOffset > sticky) {
                 header.classList.add('sticky')
-                if(box) box.classList.add('sticky-box')
+                box.classList.add('sticky-box')
             } else {
                 header.classList.remove('sticky')
-                if(box) box.classList.remove('sticky-box')
+                box.classList.remove('sticky-box')
             }
          
             // if((window.pageYOffset + 100) > sticky_box) {
