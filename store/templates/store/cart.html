@@ -1,0 +1,148 @@
+
+    {% extends 'store/base.html' %}
+
+    {% block content %}
+    {% load cart %}
+    {% load custom_filter %}
+    {% load static %}
+
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-transparent mb-0 nav-box">
+        <div class="d-flex flex-column align-items-center justify-content-center our-shop" style="min-height: 100px">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3 font-phone-title-2">CART</h1>
+            <div class="d-inline-flex">
+                <p class="m-0"><a href="/">Home</a></p>
+                <p class="m-0 px-2">-</p>
+                <p class="m-0"><a href="/shop">Shop</a></p>
+                <p class="m-0 px-2">-</p>
+                <p class="m-0">Cart</p>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+    <!-- Cart Start -->
+    <div class="container-fluid pt-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-8 table-responsive mb-5">
+                <table class="table table-bordered text-center mb-0 bg-white m-0">
+                    <thead class="bg-primary text-white">
+                        <tr>
+                            <th>Sno.</th>
+                            <th>Products</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                        {% if products %}
+                        {% for item in products %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td class="align-middle"><img src="{{item.image.url}}" alt="" style="width: 50px; margin-right: 3px;">{{item.name}}</td>
+                            <td class="align-middle">{{item.price|currency}}</td>
+                            <td class="align-middle">
+                                <div class="input-group quantity  mx-auto" style="width: 100px;"> 
+                                    <div class="input-group-btn"> 
+                                        <form action="#{{item.id}}" method="POST" class="btn-block">
+                                            {% csrf_token %}
+                                            <input hidden type="text" name='product' value='{{item.id}}'>
+                                            <input hidden type="text" name='remove' value='True'>
+                                            <button type="submit" class="btn btn-sm btn-primary btn-plus text-white" >
+                                            <i class="fa fa-minus font-phone"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <input type="text" class="form-control text-center border-0 p-0" value="{{item|cart_quantity:request.session.cart}}">
+                                    <div class="input-group-btn">
+                                        <form action="#{{item.id}}" method="POST" class="btn-block">
+                                            {% csrf_token %}
+                                            <input hidden type="text" name='add' value='True'>
+                                            <input hidden type="text" name='product' value='{{item.id}}'>
+                                            <button type="submit" class="btn btn-sm btn-primary btn-plus text-white">
+                                                <i class="fa fa-plus font-phone"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="align-middle">{{item|price_total:request.session.cart|currency}}</td>
+                            <td class="align-middle">
+                                <form action="#{{item.id}}" method="POST" class="btn-block">
+                                    {% csrf_token %}
+                                    <input hidden type="text" name='destroy' value='True'>
+                                    <input hidden type="text" name='product' value='{{item.id}}'>
+                                    <button class="btn btn-sm btn-primary text-white"><i class="fa fa-times"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                        {% else %}
+                            <tr>
+                                <td>1</td>
+                                <td class="align-middle"><img src="img/product-2.jpg" alt="" style="width: 50px;">No product</td>
+                                <td class="align-middle"></td>
+                                <td class="align-middle">
+                                    <div class="input-group quantity mx-auto" style="width: 100px;">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-primary btn-minus text-white" >
+                                            <i class="fa fa-minus"></i>
+                                            </button>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm text-center border-0" value="0">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-primary btn-plus text-white">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="align-middle">GHS 0</td>
+                                <td class="align-middle"><button class="btn btn-sm btn-primary text-white"><i class="fa fa-times"></i></button></td>
+                            </tr>
+                        {% endif %}    
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-4">
+                <form class="mb-5" action="">
+                    <div class="input-group">
+                        <input type="text" class="form-control p-4" placeholder="Coupon Code" style="border-radius: 2px;">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary text-white font-weight-semi-bold">Apply Coupon</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="card border-primary mb-5 bg-white m-0">
+                    <div class="card-header bg-primary border-0">
+                        <h4 class="font-weight-semi-bold m-0 text-white">Cart Summary</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-3 pt-1">
+                            <h6 class="font-weight-medium">Subtotal</h6>
+                            <h6 class="font-weight-medium">{{products|sub_total:request.session.cart|currency}}</h6>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="font-weight-medium">Shipping</h6>
+                            <h6 class="font-weight-medium">{{products|shipping_total|currency}}</h6>
+                        </div>
+                    </div>
+                    
+                    <div class="card-footer border-secondary bg-transparent">
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5 class="font-weight-bold">Total</h5>
+                            <h5 class="font-weight-bold"><th>{{products|total_cart_price:request.session.cart|currency}}</h5>
+                        </div>
+                        <a href="/checkout"><button class="btn btn-block btn-primary my-3 py-3 text-white font-weight-semi-bold">Proceed To Checkout</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Cart End -->
+
+    
+    {% endblock %}

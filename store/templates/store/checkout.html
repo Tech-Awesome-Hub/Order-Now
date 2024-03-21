@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>EShopper - Bootstrap Shop Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<!-- Topbar Start -->
+     <div class="container-fluid" id="header">
+        <div class="row px-xl-5" style="background-color: var(--purple-light);">
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="d-inline-flex align-items-center">
+                
+                </div>
+            </div>
+            <div class="col-lg-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center" style="float:right; margin-top: 2px;">
+                    <a href="" class="btn hide-large font-phone">
+                        <i class="fa fa-comments text-white"></i>
+                        <span class="badge text-white">Chat</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center py-3 px-xl-5 bg-white bg-purple">
+            <div class="col-lg-3 d-none d-lg-block">
+                <a href="index.html" class="text-decoration-none">
+                    <h1 class="m-0 d-flex flex-row font-weight-semi-bold align-items-center">
+                        <span class="p-0 text-orange d-flex align-items-center justify-content-center mr-3" style="width: 50px; height: 50px; border-radius: 100%; background: var(--purple-light)">O</span>
+                        <span class="org">OrderNow</span>
+                    </h1>
+                </a>
+            </div>
+            <div class="col-lg-5 col-6 text-left">
+                <form action="">
+                    <div class="input-group">
+                        <div class="input-group-append search-icon border border-right-0">
+                            <span class="input-group-text border-right-0 m-0" style="background-color: var(--white); border: 1px solid #ddd;">
+                                <i class="fa fa-search m-0" style="color: #ddd;"></i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control search-box border border-left-0" placeholder="Search for products">
+                        <div class="input-group-append btn-badge btn-search ml-2">
+                            <span class="input-group-text bg-transparent badge-phone border-0" style="color: white;">
+                                <p class="m-0">Search</p>
+                                <i class="fa fa-search search-icon2 m-0" style="display: none;"></i>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-4 col-6 text-center">
+                <div class="dropdown btn font-phone">
+                    <a href="#" class="">
+                        <i class="fas fa-user text-white"></i>
+                        <a href="#" class="badge text-white" data-toggle="dropdown">Account <i class="fa fa-angle-down float-right ml-1"></i></a>
+                    </a>
+                    <div class="dropdown-menu position-absolute bg-white border-0 rounded-0 w-100 m-0" style="height: auto; overflow: hidden;">
+                        <div class="navbar-nav ml-auto mr-auto py-0 btn-badge log mb-3">
+                            <a href="login.html" class="nav-item nav-link text-uppercase badge-phone">Login</a>
+                        </div>
+                        <a href="" class="dropdown-item" style="font-size: 12px;"><i class="fas fa-user"></i>  My Account</a>
+                        <a href="" class="dropdown-item" style="font-size: 12px;"><i class="fas fa-gift"></i>  Orders</a>
+                        <a href="" class="dropdown-item" style="font-size: 12px;"><i class="fas fa-heart"></i>  Saved Items</a>
+                    </div>
+                </div>
+                <a href="chat.html" class="btn hide-small">
+                    <i class="fa fa-comments text-white"></i>
+                    <span class="badge text-white">Chat</span>
+                </a>
+                <a href="cart.html" class="btn font-phone">
+                    <i class="fas fa-shopping-cart text-white"></i>
+                    <span class="badge text-white">0</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+     <!-- Navbar Start -->
+    <div class="container-fluid nav-box">
+        <div class="row px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block">
+                <span class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 55px; margin-top: -1px; padding: 0 30px;">
+                    <h6 class="m-0"  style="color: white;">Categories</h6>
+                    <i class="fa fa-angle-down text-white"></i>
+                </span>
+                <nav class=" bg-white m-0 collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 1;">
+                    <div class="navbar-nav w-100 overflow-hidden" style="height: auto;">
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link" data-toggle="dropdown"><i class="fas fa-tshirt"></i><span class="ml-3" style="font-size: 12px;">Fashion</span> <i class="fa fa-angle-down float-right mt-1"></i></a>
+                            <div class="dropdown-menu position-absolute bg-white border-0 rounded-0 w-100 m-0">
+                                <a href="" class="dropdown-item"><i class="fas fa-tshirt"></i><span class="ml-3" style="font-size: 12px;">Cloths</span></a>
+                                <a href="" class="dropdown-item"><i class="fas fa-shoe-prints"></i><span class="ml-3" style="font-size: 12px;">Easy Wear / Shoes</span></a>
+                            </div>
+                        </div>
+                        <a href="" class="nav-item nav-link"><svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><path d="M256 48C141.1 48 48 141.1 48 256v40c0 13.3-10.7 24-24 24s-24-10.7-24-24V256C0 114.6 114.6 0 256 0S512 114.6 512 256V400.1c0 48.6-39.4 88-88.1 88L313.6 488c-8.3 14.3-23.8 24-41.6 24H240c-26.5 0-48-21.5-48-48s21.5-48 48-48h32c17.8 0 33.3 9.7 41.6 24l110.4 .1c22.1 0 40-17.9 40-40V256c0-114.9-93.1-208-208-208zM144 208h16c17.7 0 32 14.3 32 32V352c0 17.7-14.3 32-32 32H144c-35.3 0-64-28.7-64-64V272c0-35.3 28.7-64 64-64zm224 0c35.3 0 64 28.7 64 64v48c0 35.3-28.7 64-64 64H352c-17.7 0-32-14.3-32-32V240c0-17.7 14.3-32 32-32h16z"/></svg>
+                        <span class="ml-3" style="font-size: 12px;">Accerssories</span></a>
+                        <a href="" class="nav-item nav-link"><i class="fas fa-tv"></i><span class="ml-3" style="font-size: 12px;">Appliances</span></a>
+                        <a href="" class="nav-item nav-link"><i class="fas fa-tablet"></i><span class="ml-3" style="font-size: 12px;">Phones & Tablets</span></a>
+                    </div>
+                </nav>
+            </div>
+            <div class="col-lg-9">
+                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-3 hide-large">
+                    <a href="index.html" class="text-decoration-none">
+                        <h1 class="m-0 d-flex flex-row font-weight-semi-bold align-items-center">
+                            <span class="p-0 text-orange d-flex align-items-center justify-content-center mr-3" style="width: 30px; height: 40px; border-radius: 100%;">O</span>
+                            <span class="org-2">OrderNow</span>
+                        </h1>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto py-0">
+                            <a href="index.html" class="nav-item nav-link badge-phone active">Home</a>
+                            <a href="shop.html" class="nav-item nav-link badge-phone">Shop</a>                           
+                            <a href="contact.html" class="nav-item nav-link badge-phone">Contact</a>
+                            <a href="login.html" class="nav-item nav-link badge-phone">Login</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+     <!-- Navbar End -->
+ 
+     <!-- Page Header Start -->
+     <div class="container-fluid bg-transparent mb-5 hide-small">
+         <div class="d-flex flex-column align-items-center justify-content-center our-shop" style="min-height: 100px">
+             <h1 class="font-weight-semi-bold text-uppercase mb-3 font-phone-title-2">Checkout</h1>
+             <div class="d-inline-flex">
+                 <p class="m-0"><a href="cart.html">Back to cart</a></p>
+                 <p class="m-0 px-2">-</p>
+                 <p class="m-0">Checkout</p>
+             </div>
+         </div>
+     </div>
+     <!-- Page Header End -->
+
+    <!-- Checkout Start -->
+    <div class="container-fluid pt-3">
+        <div class="row px-xl-5">
+            <div class="col-lg-8">
+                <div class="mb-4">
+                    <div class="card-header bg-purple-light border-0 d-flex flex-row align-items-center justify-content-between" style="width: 99.5%;">
+                        <h4 class="font-weight-semi-bold m-0 text-white font-phone-title">Billing Address</h4>
+                        <a href="#bill-box" data-toggle="collapse" class="hide-large"><i class="fa fa-angle-down text-white"></i></a>
+                    </div>
+                    <div class="row bg-white ml-0 mr-1 bill-box overflow-hidden hide" id="bill-box" style="height: 0px;">
+                        <div class="col-md-6 form-group bb-name-box">
+                            <label>First Name</label>
+                            <input class="form-control" type="text" placeholder="John">
+                        </div>
+                        <div class="col-md-6 form-group bb-name-box">
+                            <label>Last Name</label>
+                            <input class="form-control" type="text" placeholder="Doe">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>E-mail</label>
+                            <input class="form-control" type="text" placeholder="example@email.com">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Mobile No</label>
+                            <input class="form-control" type="text" placeholder="+123 456 789">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Address Line 1</label>
+                            <input class="form-control" type="text" placeholder="123 Street">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Address Line 2</label>
+                            <input class="form-control" type="text" placeholder="123 Street">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Country</label>
+                            <select class="custom-select">
+                                <option selected>United States</option>
+                                <option>Afghanistan</option>
+                                <option>Albania</option>
+                                <option>Algeria</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>City</label>
+                            <input class="form-control" type="text" placeholder="New York">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>State</label>
+                            <input class="form-control" type="text" placeholder="New York">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>ZIP Code</label>
+                            <input class="form-control" type="text" placeholder="123">
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="newaccount">
+                                <label class="custom-control-label" for="newaccount">Create an account</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="shipto">
+                                <label class="custom-control-label" for="shipto"  data-toggle="collapse" data-target="#shipping-address">Ship to different address</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="collapse mb-4" id="shipping-address">
+                    <h4 class="font-weight-semi-bold mb-4 font-phone-title">Shipping Address</h4>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>First Name</label>
+                            <input class="form-control" type="text" placeholder="John">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Last Name</label>
+                            <input class="form-control" type="text" placeholder="Doe">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>E-mail</label>
+                            <input class="form-control" type="text" placeholder="example@email.com">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Mobile No</label>
+                            <input class="form-control" type="text" placeholder="+123 456 789">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Address Line 1</label>
+                            <input class="form-control" type="text" placeholder="123 Street">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Address Line 2</label>
+                            <input class="form-control" type="text" placeholder="123 Street">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Country</label>
+                            <select class="custom-select">
+                                <option selected>United States</option>
+                                <option>Afghanistan</option>
+                                <option>Albania</option>
+                                <option>Algeria</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>City</label>
+                            <input class="form-control" type="text" placeholder="New York">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>State</label>
+                            <input class="form-control" type="text" placeholder="New York">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>ZIP Code</label>
+                            <input class="form-control" type="text" placeholder="123">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card border-secondary mb-5">
+                    <div class="card-header bg-purple-light border-0">
+                        <h4 class="font-weight-semi-bold m-0 text-white font-phone-title">Order Total</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="font-weight-semi-bold mb-3 font-phone-title-3">Products</h5>
+                        <div class="d-flex justify-content-between  font-phone-title-4">
+                            <p>Colorful Stylish Shirt 1</p>
+                            <p>$150</p>
+                        </div>
+                        <div class="d-flex justify-content-between font-phone-title-4">
+                            <p>Colorful Stylish Shirt 2</p>
+                            <p>$150</p>
+                        </div>
+                        <div class="d-flex justify-content-between font-phone-title-4">
+                            <p>Colorful Stylish Shirt 3</p>
+                            <p>$150</p>
+                        </div>
+                        <hr class="mt-0">
+                        <div class="d-flex justify-content-between mb-3 pt-1">
+                            <h6 class="font-weight-medium font-phone-title-4">Subtotal</h6>
+                            <h6 class="font-weight-medium font-phone-title-4">$150</h6>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="font-weight-medium font-phone-title-4">Shipping</h6>
+                            <h6 class="font-weight-medium font-phone-title-4">$10</h6>
+                        </div>
+                    </div>
+                    <div class="card-footer border-secondary bg-transparent">
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5 class="font-weight-semi-bold font-phone-title-3">Total</h5>
+                            <h5 class="font-weight-semi-bold font-phone-title-3">$160</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card border-secondary mb-5">
+                    <div class="card-header bg-purple-light border-0">
+                        <h4 class="font-weight-semi-bold m-0 text-white font-phone-title">Payment</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="payment" id="momo">
+                                <label class="custom-control-label font-phone-title-4" for="momo">Momo</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="payment" id="paypal">
+                                <label class="custom-control-label font-phone-title-4" for="paypal">Paypal</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="payment" id="visa">
+                                <label class="custom-control-label font-phone-title-4" for="visa">Visa Card</label>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="payment" id="banktransfer">
+                                <label class="custom-control-label font-phone-title-4" for="banktransfer">Bank Transfer</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer border-primary bg-transparent">
+                        <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3 font-phone-title">Place Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Checkout End -->
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-purple text-white mt-5 pt-5">
+        <div class="row px-xl-5 pt-5">
+            <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+                <a href="index.html" class="text-decoration-none">
+                    <h1 class="m-0 d-flex flex-row font-weight-semi-bold align-items-center">
+                        <span class="p-0 text-orange d-flex align-items-center justify-content-center mr-3" style="width: 50px; height: 50px; border-radius: 100%; background: var(--purple-light)">O</span>
+                        <span class="org">OrderNow</span>
+                    </h1>
+                </a>
+                <br>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-white mr-3"></i>Lantei Junction, Nsawam, Ghana</p>
+                <p class="mb-2"><i class="fa fa-envelope text-white mr-3"></i>www.techawesome052@gmail.com</p>
+                <p class="mb-0"><i class="fa fa-phone-alt text-white mr-2"></i>+233206994579</p>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="row">
+                    <div class="col-md-4 mb-5">
+                        <h5 class="font-weight-bold text-orange mb-4">Quick Links</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-white mb-2" href="index.html"><i class="fa fa-angle-right mr-2 text-white"></i>Home</a>
+                            <a class="text-white mb-2" href="shop.html"><i class="fa fa-angle-right text-white mr-2"></i>Our Shop</a>              
+                            <a class="text-white mb-2" href="contact.html"><i class="fa fa-angle-right text-white mr-2"></i>Contact Us</a>
+                            <a class="text-white mb-2" href=""><i class="fa fa-angle-right text-white mr-2"></i>FAQs</a>
+                            <a class="text-white mb-2" href=""><i class="fa fa-angle-right text-white mr-2"></i>Help</a>
+                            <a class="text-white" href=""><i class="fa fa-angle-right text-white mr-2"></i>Support</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <h5 class="font-weight-bold text-orange mb-4">Social Links</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-white mb-2" href="index.html"><i class="fab fa-facebook-f text-white mr-2"></i>Facebook</a>
+                            <a class="text-white mb-2" href="shop.html"><i class="fab fa-twitter text-white mr-2"></i>Twitter</a>
+                            <a class="text-white mb-2" href="cart.html"><i class="fab fa-linkedin-in text-white mr-2"></i>Linkedin</a>
+                            <a class="text-white mb-2" href="checkout.html"><i class="fab fa-instagram text-white mr-2"></i>Instagram</a>
+                            <a class="text-white" href="contact.html"><i class="fab fa-youtube text-white mr-2"></i>Youtube</a>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-4 mb-5">
+                        <h5 class="font-weight-bold text-orange mb-4">Newsletter</h5>
+                        <form action="">
+                            <div class="form-group">
+                                <input type="text" class="form-control border-0 py-4" placeholder="Your Name" required="required" />
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control border-0 py-4" placeholder="Your Email"
+                                    required="required" />
+                            </div>
+                            <div>
+                                <button class="btn btn-primary btn-block border-0 py-3" type="submit" style="background-color: var(--orange);">Subscribe Now</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row border-top border-light mx-xl-5 py-4">
+            <div class="col-md-6 px-xl-0">
+                <p class="mb-md-0 text-center text-md-left text-white">
+                    &copy; <a class="text font-weight-semi-bold text-white" href="#">Order Now</a>. All Rights Reserved.
+                </p>
+            </div>
+            <div class="col-md-6 px-xl-0 text-center text-md-right">
+                <img class="img-fluid" src="img/payments.png" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary text-white back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="mail/jqBootstrapValidation.min.js"></script>
+    <script src="mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>

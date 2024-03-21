@@ -1,0 +1,260 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>OrderNow</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free HTML Templates" name="keywords">
+    <meta content="Free HTML Templates" name="description">
+    
+    <!-- Favicon -->
+    <link href="{% static 'store/img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'store/lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+     
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'store/css/style.css' %}" rel="stylesheet">
+    <style>
+        .bdr-1 {
+            border-radius: 6px;
+        }
+        .img-fluid.shop {
+            width: 100% !important;
+            height: 200px !important;
+        }
+
+@media (max-width: 991.98px) {    
+
+  .img-detail {
+    width: 250px !important;
+    height: 300px !important;
+    border: 2px solid #000 !important;
+  }
+  #product-carousel {
+    /* background-color: red !important; */
+    display: flex;
+    justify-content: center;
+  }
+  
+  .img-detail-box {
+    /* background: #000; */
+    width: 250px !important;
+    height: auto !important;
+    overflow: hidden;
+  }
+
+
+}
+
+@media (min-width: 992.98px) {
+ 
+  .img-detail {
+    width: 380px !important;
+    height: 450px !important;
+    /* border: 2px solid #000 !important; */
+  }
+  #product-carousel {
+    /* background-color: red !important; */
+    display: flex;
+    justify-content: center;
+  }
+  
+  .img-detail-box {
+    /* background: #000; */
+    width: 350px !important;
+    height: auto !important;
+    overflow: hidden;
+  }
+
+}
+  
+    </style>
+</head>
+<body>
+        
+    {% load cart %}
+    {% load custom_filter %}
+
+    
+    <!-- Topbar Start -->
+    <div class="container-fluid" id="header">
+        <div class="row px-xl-5" style="background-color: var(--purple-light);">
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="d-inline-flex align-items-center">
+                
+                </div>
+            </div>
+            <div class="col-lg-6 text-center text-lg-right">
+                <div class="d-inline-flex align-items-center" style="float:right; margin-top: 2px;">
+                    <a href="{% url 'store:chat' %}" class="btn hide-large font-phone">
+                        <i class="fa fa-comments text-white"></i>
+                        <span class="badge text-white">Chat</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center py-3 px-xl-5 bg-white bg-purple">
+            <div class="col-lg-3 d-none d-lg-block">
+                <a href="{% url 'store:store' %}" class="text-decoration-none">
+                    <h1 class="m-0 d-flex flex-row font-weight-semi-bold align-items-center">
+                        <span class="p-0 text-orange d-flex align-items-center justify-content-center mr-3" style="width: 50px; height: 50px; border-radius: 100%; background: var(--purple-light)">O</span>
+                        <span class="org">OrderNow</span>
+                    </h1>
+                </a>
+            </div>
+            <div class="col-lg-5 col-6 text-left">
+                <form method="get" action="{% url 'store:search_view' %}">
+                    <div class="input-group">
+                        <div class="input-group-append search-icon border-0">
+                            <span class="input-group-text border-0 m-0" style="background-color: var(--white); border: 1px solid #ddd;">
+                                <i class="fa fa-search m-0" style="color: #ddd;"></i>
+                            </span>
+                        </div>
+                        <input type="text" name="search__query" class="form-control search-box border-0" placeholder="Search for products" value="">
+                        <div class="input-group-append btn-badge btn-search ml-2">
+                            <button type="submit" class="input-group-text bg-transparent badge-phone border-0" style="color: white;">
+                                <p class="m-0">Search</p>
+                                <i class="fa fa-search search-icon2 m-0" style="display: none;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-4 col-6 text-center">
+                <div class="dropdown btn font-phone">
+                    <a href="#" class="">
+                        <i class="fas fa-user text-white"></i>
+                        <a href="#" class="badge text-white" data-toggle="dropdown">Account <i class="fa fa-angle-down float-right ml-1"></i></a>
+                    </a>
+                    <div class="dropdown-menu position-absolute bg-white border-0 rounded-0 w-100 m-0" style="height: auto; overflow: hidden;">
+                        {% if request.session.customer %}
+                            <div class="navbar-nav ml-auto mr-auto py-0 btn-badge log mb-3">
+                                <a href="{% url 'store:logout' %}" class="nav-item nav-link text-uppercase badge-phone font-phone">Logout</a>
+                            </div>
+                            <a href="" class="dropdown-item" style="font-size: 12px;"><i class="fas fa-user"></i>  My Account</a>
+                            <a href="" class="dropdown-item" style="font-size: 12px;"><i class="fas fa-gift"></i>  Orders</a>
+                            <a href="" class="dropdown-item" style="font-size: 12px;"><i class="fas fa-heart"></i>  Saved Items</a>
+                        {% else %}
+                            <div class="navbar-nav ml-auto mr-auto py-0 btn-badge log mb-3">
+                                <a href="{% url 'store:login' %}" class="nav-item nav-link text-uppercase badge-phone font-phone">Login</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <a href="{% url 'store:chat' %}" class="btn hide-small">
+                    <i class="fa fa-comments text-white"></i>
+                    <span class="badge text-white">Chat</span>
+                </a>
+                <a href="{% url 'store:cart' %}" class="btn font-phone">
+                    <i class="fas fa-shopping-cart text-white"></i>
+                    <span class="badge text-white badge-success">{{request.session.cart.keys|length}}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar End -->
+
+    <!---->
+    {% block content %}{% endblock %}
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-purple text-white mt-5 pt-5">
+        <div class="row px-xl-5 pt-5">
+            <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
+                <a href="{% url 'store:store' %}" class="text-decoration-none">
+                    <h1 class="m-0 d-flex flex-row font-weight-semi-bold align-items-center">
+                        <span class="p-0 text-orange d-flex align-items-center justify-content-center mr-3" style="width: 50px; height: 50px; border-radius: 100%; background: var(--purple-light)">O</span>
+                        <span class="org">OrderNow</span>
+                    </h1>
+                </a>
+                <br>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-white mr-3"></i>Lantei Junction, Nsawam, Ghana</p>
+                <p class="mb-2"><i class="fa fa-envelope text-white mr-3"></i>www.techawesome052@gmail.com</p>
+                <p class="mb-0"><i class="fa fa-phone-alt text-white mr-2"></i>+233206994579</p>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="row">
+                    <div class="col-md-4 mb-5">
+                        <h5 class="font-weight-bold text-orange mb-4">Quick Links</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-white mb-2" href="{% url 'store:store' %}"><i class="fa fa-angle-right mr-2 text-white"></i>Home</a>
+                            <a class="text-white mb-2" href="{% url 'store:shop' %}"><i class="fa fa-angle-right text-white mr-2"></i>Our Shop</a>              
+                            <a class="text-white mb-2" href="{% url 'store:contact' %}"><i class="fa fa-angle-right text-white mr-2"></i>Contact Us</a>
+                            <a class="text-white mb-2" href=""><i class="fa fa-angle-right text-white mr-2"></i>FAQs</a>
+                            <a class="text-white mb-2" href=""><i class="fa fa-angle-right text-white mr-2"></i>Help</a>
+                            <a class="text-white" href=""><i class="fa fa-angle-right text-white mr-2"></i>Support</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <h5 class="font-weight-bold text-orange mb-4">Social Links</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-white mb-2" href="/store"><i class="fab fa-facebook-f text-white mr-2"></i>Facebook</a>
+                            <a class="text-white mb-2" href="/shop"><i class="fab fa-twitter text-white mr-2"></i>Twitter</a>
+                            <a class="text-white mb-2" href="/cart"><i class="fab fa-linkedin-in text-white mr-2"></i>Linkedin</a>
+                            <a class="text-white mb-2" href="/checkout"><i class="fab fa-instagram text-white mr-2"></i>Instagram</a>
+                            <a class="text-white" href="/contact"><i class="fab fa-youtube text-white mr-2"></i>Youtube</a>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-4 mb-5">
+                        <h5 class="font-weight-bold text-orange mb-4">Newsletter</h5>
+                        <form action="">
+                            <div class="form-group">
+                                <input type="text" class="form-control border-0 py-4" placeholder="Your Name" required="required" />
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control border-0 py-4" placeholder="Your Email"
+                                    required="required" />
+                            </div>
+                            <div>
+                                <button class="btn btn-primary btn-block border-0 py-3" type="submit" style="background-color: var(--orange);">Subscribe Now</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row border-top border-light mx-xl-5 py-4">
+            <div class="col-md-6 px-xl-0">
+                <p class="mb-md-0 text-center text-md-left text-white">
+                    &copy; <a class="text font-weight-semi-bold text-white" href="{% url 'store:store' %}">Order Now</a>. All Rights Reserved.
+                </p>
+            </div>
+            <div class="col-md-6 px-xl-0 text-center text-md-right">
+                <img class="img-fluid" src="{% static 'store/img/payments.png' %}" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary text-white back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'store/lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'store/lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="{% static 'store/mail/jqBootstrapValidation.min.js' %}"></script>
+    <script src="{% static 'store/mail/contact.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'store/js/main.js' %}"></script>
+</body>
+
+</html>
