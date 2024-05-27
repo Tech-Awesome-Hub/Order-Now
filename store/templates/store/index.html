@@ -1,0 +1,359 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+{% load sub_category %}
+{% load cart %}
+{% load custom_filter %}
+{% load static %}
+
+    
+    <!-- Navbar Start -->
+    <div class="container-fluid mb-0 nav-box">
+        <div class="row px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block">
+                <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 bg-white m-0 border-top-0 border-bottom-0 bdr-1" id="navbar-vertical">
+                    <div class="navbar-nav w-100 overflow-hidden" style="height: 470px;">
+                    {% for item in categories %}
+                        <a href="/shop?category={{item.id}}" class="nav-item nav-link"><i class="{{item.icon}}"></i><span class="ml-3" style="font-size: 12px;">{{item.name}}</span></a>
+                    {% endfor %}                    
+                    </div>
+                    <div class="bg-orange w-100 overflow-hidden">
+                        <a href="" class="nav-item nav-link w-100"><span class="float-right mr-2 text-white" style="font-size: 12px;">SEE ALL  <i class="fa fa-angle-double-right"></i></span></a>
+                    </div>
+                </nav>
+            </div>
+            <div class="col-lg-6 bg-white no-space-desk carousel-height overflow-hidden bdr-1">
+                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 hide-large">
+                    <a href="{% url 'store:store' %}" class="text-decoration-none">
+                        <h1 class="m-0 d-flex flex-row font-weight-semi-bold align-items-center">
+                            <span class="p-0 text-orange d-flex align-items-center justify-content-center mr-3" style="width: 30px; height: 40px; border-radius: 100%;">O</span>
+                            <span class="org-2">ABuy</span>
+                        </h1>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto py-0">
+                            <a href="{% url 'store:store' %}" class="nav-item nav-link badge-phone active">Home</a>
+                            <a href="{% url 'store:shop' %}" class="nav-item nav-link badge-phone">Shop</a>                           
+                            <a href="{% url 'store:contact' %}" class="nav-item nav-link badge-phone">Contact</a>
+                            <a href="{% url 'store:login' %}" class="nav-item nav-link badge-phone">Login</a>
+                        </div>
+                    </div>
+                </nav>
+                <div id="header-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner mb-3 no-space-desk">
+                        {% for item in offers %}
+                            {% if item.name == 'Main' %}
+                                {% for image in item.image_url %}
+                                    
+                                    {% if forloop.counter == 1 %}
+                                        <div class="carousel-item active" style="height: 490px;">
+                                            <img class="img-fluid" src="{{image.url}}" alt="Image">
+                                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                                <div class="p-3" style="max-width: 700px;">
+                                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">{{item.description}}</h4>
+                                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">{{image.description}}</h3>
+                                                    <a href="/shop" class="btn btn-light py-2 px-3">Shop Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div class="carousel-item" style="height: 490px;">
+                                            <img class="img-fluid" src="{{image.url}}" alt="Image">
+                                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                                <div class="p-3" style="max-width: 700px;">
+                                                    <h4 class="text-light text-uppercase font-weight-medium mb-3">{{item.description}}</h4>
+                                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">{{image.description}}</h3>
+                                                    <a href="/shop" class="btn btn-light py-2 px-3">Shop Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                        
+                                {% endfor %}
+                           {% endif %}
+                        {% endfor %}
+                    </div>
+                    <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
+                        <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                            <span class="carousel-control-prev-icon mb-n2"></span>
+                        </div>
+                    </a>
+                    <a class="carousel-control-next" href="#header-carousel" data-slide="next">
+                        <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                            <span class="carousel-control-next-icon mb-n2"></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 d-none d-lg-block">
+                <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border-top-0 border-bottom-0" id="navbar-vertical">
+                    <div class="navbar-nav w-100 overflow-hidden bg-white m-0 mb-2 bdr-1" style="height: auto;">
+                        <a href="#" class="nav-item nav-link"><i class="fa fa-check text"></i><span class="ml-3" style="font-size: 12px;">Quality Product</span></a>
+                        <a href="{% url 'store:contact' %}" class="nav-item nav-link"><i class="fa fa-phone-volume"></i><span class="ml-3" style="font-size: 12px;">Contact Us</span></a>
+                        <a href="#" class="nav-item nav-link"><i class="fas fa-exchange-alt"></i><span class="ml-3" style="font-size: 12px;">Items Returnable</span></a>
+                        <a href="{% url 'store:shop' %}" class="nav-item nav-link"><svg xmlns="http://www.w3.org/2000/svg" height="16" width="20" viewBox="0 0 640 512"><path d="M480 48c0-26.5-21.5-48-48-48H336c-26.5 0-48 21.5-48 48V96H224V24c0-13.3-10.7-24-24-24s-24 10.7-24 24V96H112V24c0-13.3-10.7-24-24-24S64 10.7 64 24V96H48C21.5 96 0 117.5 0 144v96V464c0 26.5 21.5 48 48 48H304h32 96H592c26.5 0 48-21.5 48-48V240c0-26.5-21.5-48-48-48H480V48zm96 320v32c0 8.8-7.2 16-16 16H528c-8.8 0-16-7.2-16-16V368c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16zM240 416H208c-8.8 0-16-7.2-16-16V368c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16zM128 400c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V368c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32zM560 256c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H528c-8.8 0-16-7.2-16-16V272c0-8.8 7.2-16 16-16h32zM256 176v32c0 8.8-7.2 16-16 16H208c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16zM112 160c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16h32zM256 304c0 8.8-7.2 16-16 16H208c-8.8 0-16-7.2-16-16V272c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32zM112 320H80c-8.8 0-16-7.2-16-16V272c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16zm304-48v32c0 8.8-7.2 16-16 16H368c-8.8 0-16-7.2-16-16V272c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16zM400 64c8.8 0 16 7.2 16 16v32c0 8.8-7.2 16-16 16H368c-8.8 0-16-7.2-16-16V80c0-8.8 7.2-16 16-16h32zm16 112v32c0 8.8-7.2 16-16 16H368c-8.8 0-16-7.2-16-16V176c0-8.8 7.2-16 16-16h32c8.8 0 16 7.2 16 16z"/></svg><span class="ml-3" style="font-size: 12px;">Shop</span></a>
+                    </div>
+                    <div class="navbar-nav w-100 overflow-hidden bg-white m-0 mt-2 bdr-1" style="height: 310px;">
+
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Navbar End -->
+    
+    <!-- Products Start -->
+    <div class="container-fluid pt-2 d-flex justify-content-center align-items-center flex-column f-box">
+        <div class="section-back pt-2">
+            <div class="row px-xl-3 pb-3">
+            {% for item in sub_categories %}
+            {% for cat in categories %}
+                {% with f=item|is_in_category:cat|isavailable %}
+                    {% if not f  %} 
+                        <div class="col-lg-2 col-md-4 col-sm-12 pb-2">
+                            <a href="/shop?category={{cat.id}}">
+                                <div class="card product-item cat border-0 bg-white m-0">
+                                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                        <img class="img-fluid w-100" src="{{item.image.url}}" alt="{{item.image.url}}" style="height: 210px;">
+                                    </div>
+                                    <div class="card-body border-left border-right text-center p-0 pt-2 pb-1">
+                                        <h6 class="text-truncate mb-2 font-weight-semi-medium">{{item|is_in_category:cat|available_category}}</h6>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            {% endfor %}
+            {% endfor %}
+            </div>  
+        </div>
+    </div>
+    <!-- Products End -->
+
+    <!-- Offer Start --> 
+    <div class="container-fluid offer pt-2">
+        <div class="row px-xl-5">
+            {% for item in offers %}
+                {% if item.name == 'Secondary' and item.show %}
+                    <div class="col-md-6 pb-4">
+                            <div class="position-relative bg-offer text-center text-md-right text-white mb-2 py-5 px-5">
+                                <img src="{{item.image.url}}" alt="" class="offer-img">
+                                <div class="position-relative" style="z-index: 1;">
+                                    <h5 class="text-uppercase text-white mb-3">{{item.description}}</h5>
+                                    <h1 class="mb-4 font-weight-semi-bold"></h1>
+                                    <a href="{% url 'store:shop' %}" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
+                                </div>
+                            </div>
+                    </div>
+                    <div class="col-md-6 pb-4">
+                        <div class="position-relative bg-offer text-center text-md-left text-white mb-2 py-5 px-5">
+                            <img src="{{item.image.url}}" alt="" class="offer-img">
+                            <div class="position-relative" style="z-index: 1;">
+                                <h5 class="text-uppercase text-white mb-3">{{item.description}}</h5>
+                                <h1 class="mb-4 font-weight-semi-bold"></h1>
+                                <a href="{% url 'store:shop' %}" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Offer End -->
+
+
+    <!-- Products Trandy Start -->
+    <div class="container-fluid pt-2 d-flex justify-content-center align-items-center flex-column f-box-2">
+        <div class="d-flex justify-content-center align-items-between mb-3 section-title-back bg-purple">
+            <h5 class="section-title px-5 text-white mt-2 text-left" style="width: 70%;"><span class="font-phone-title">Trandy Products</span></h5>
+            <a href="/shop?type=Trandy" class="nav-item nav-link text-right mr-2" style="width: 30%;"><span class="mr-2 text-white" style="font-size: 12px;">SEE ALL  <i class="fa fa-angle-double-right"></i></span></a>
+        </div>
+        <div class="section-back">
+            <div class="row px-xl-5">
+                {% for item in products %}
+                   {% if item.type.name == 'Trandy' %}
+                        <div class="col-lg-2 col-md-4 col-sm-12 pb-2">
+                            <a href="{% url 'store:detail' item.id %}">
+                                <div class="card product-item border-0 bg-white m-0">
+                                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                        <img class="img-fluid shop w-100" src="{{item.image}}" alt="">
+                                    </div>
+                                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                        <h6 class="text-truncate mb-3 font-phone">{{item.name}}</h6>
+                                        <div class="d-flex justify-content-center">
+                                            <h6>{{item.price|currency}}</h6><h6 class="text-muted ml-2"><del>{{item.price|currency}}</del></h6>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer d-flex justify-content-between bg-light border hide-small">     
+                                        {% with form_url=item.id %}
+                                            <form action="#{{form_url}}" method="POST" class="btn-block" id="form-add-to-cart">
+                                                {% csrf_token %}
+                                                <input hidden type="text" name='product' value='{{item.id}}'>
+                                                <input type="submit" class="float-right btn btn-success form-control bg-orange badge-phone border-0"
+                                                    value="Add To Cart" style="padding: 0;">
+                                            </form>
+                                        {% endwith %}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Products End -->
+    
+  
+    <!-- Products 2nd-hand Start -->
+    <div class="container-fluid pt-2 d-flex justify-content-center align-items-center flex-column f-box-2">
+        <div class="d-flex justify-content-center align-items-between mb-3 section-title-back bg-purple">
+            <h5 class="section-title px-5 text-white mt-2 text-left" style="width: 70%;"><span class="font-phone-title">2nd-Hand Products</span></h5>
+            <a href="/shop?type=2nd-Hand" class="nav-item nav-link text-right mr-2" style="width: 30%;"><span class="mr-2 text-white" style="font-size: 12px;">SEE ALL  <i class="fa fa-angle-double-right"></i></span></a>
+        </div>
+        <div class="section-back">
+            <div class="row px-xl-5">
+                {% for item in products %}
+                   {% if item.type.name == '2nd-Hand' and forloop.counter <= 6 %}
+                        <div class="col-lg-2 col-md-4 col-sm-12 pb-2">
+                            <a href="{% url 'store:detail' item.id %}">
+                                <div class="card product-item border-0 bg-white m-0">
+                                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                        <img class="img-fluid shop w-100" src="{{item.image}}" alt="">
+                                    </div>
+                                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                        <h6 class="text-truncate mb-3 font-phone">{{item.name}}</h6>
+                                        <div class="d-flex justify-content-center">
+                                            <h6>{{item.price|currency}}</h6><h6 class="text-muted ml-2"><del>{{item.price|currency}}</del></h6>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer d-flex justify-content-between bg-light border hide-small">     
+                                        {% with form_url=item.id %}
+                                            <form action="#{{form_url}}" method="POST" class="btn-block"  id="form-add-to-cart">
+                                                {% csrf_token %}
+                                                <input hidden type="text" name='product' value='{{item.id}}'>
+                                                <input type="submit" class="float-right btn btn-success form-control bg-orange badge-phone border-0"
+                                                    value="Add To Cart" style="padding: 0;">
+                                            </form>
+                                        {% endwith %}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}   
+            </div>
+        </div>
+    </div>
+    <!-- Products End -->
+
+    
+    <!-- Products just arrived Start -->
+    <div class="container-fluid pt-2 d-flex justify-content-center align-items-center flex-column f-box-2">
+        <div class="d-flex justify-content-center align-items-between mb-3 section-title-back bg-cyan">
+            <h5 class="section-title px-5 text-white mt-2 text-left" style="width: 70%;"><span class="font-phone-title">Just Arrived</span></h5>
+            <a href="/shop?type=Just-Arrived" class="nav-item nav-link text-right mr-2" style="width: 30%;"><span class="mr-2 text-white" style="font-size: 12px;">SEE ALL  <i class="fa fa-angle-double-right"></i></span></a>
+        </div>
+        <div class="section-back">
+            <div class="row px-xl-5">
+                {% for item in products %}
+                   {% if item.type.name == 'Just_Arrived' and forloop.counter <= 6 %}
+                        <div class="col-lg-2 col-md-4 col-sm-12 pb-2">
+                            <a href="{% url 'store:detail' item.id %}">
+                                <div class="card product-item border-0 bg-white m-0">
+                                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                        <img class="img-fluid shop w-100" src="{{item.image}}" alt="">
+                                    </div>
+                                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                        <h6 class="text-truncate mb-3 font-phone">{{item.name}}</h6>
+                                        <div class="d-flex justify-content-center">
+                                            <h6>{{item.price|currency}}</h6><h6 class="text-muted ml-2"><del>{{item.price|currency}}</del></h6>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer d-flex justify-content-between bg-light border hide-small">     
+                                        {% with form_url=item.id %}
+                                            <form action="#{{form_url}}" method="POST" class="btn-block" id="form-add-to-cart">
+                                                {% csrf_token %}
+                                                <input hidden type="text" name='product' value='{{item.id}}'>
+                                                <input type="submit" class="float-right btn btn-success form-control bg-orange badge-phone border-0"
+                                                    value="Add To Cart" style="padding: 0;">
+                                            </form>
+                                        {% endwith %}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Products End -->
+
+    
+    <!-- Products got you covered Start -->
+    <div class="container-fluid pt-2 d-flex justify-content-center align-items-center flex-column f-box-2">
+        <div class="d-flex justify-content-center align-items-between mb-3 section-title-back bg-orange">
+            <h5 class="section-title px-5 text-white mt-2 text-left" style="width: 70%;"><span class="font-phone-title">Got you covered</span></h5>
+            <a href="/shop?type=Got-You-Covered" class="nav-item nav-link text-right mr-2" style="width: 30%;"><span class="mr-2 text-white" style="font-size: 12px;">SEE ALL  <i class="fa fa-angle-double-right"></i></span></a>
+        </div>
+        <div class="section-back">
+            <div class="row px-xl-5">
+                {% for item in products %}
+                   {% if item.type.name == 'Got-You-Covered' and forloop.counter <= 6 %}
+                        <div class="col-lg-2 col-md-4 col-sm-12 pb-2" id={{item.id}}>
+                            <a href="{% url 'store:detail' item.id %}">
+                                <div class="card product-item border-0 bg-white m-0">
+                                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                                        <img class="img-fluid shop w-100" src="{{item.image}}" alt="{{item.name}}<">
+                                    </div>
+                                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                                        <h6 class="text-truncate mb-3 font-phone">{{item.name}}</h6>
+                                        <div class="d-flex justify-content-center">
+                                            <h6>{{item.price|currency}}</h6><h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer d-flex justify-content-between bg-light border hide-small">     
+                                        {% with form_url=item.id %}
+                                            <form action="#{{form_url}}" method="POST" class="btn-block" id="form-add-to-cart">
+                                                {% csrf_token %}
+                                                <input hidden type="text" name='product' value='{{item.id}}'>
+                                                <input type="submit" class="float-right btn btn-success form-control bg-orange badge-phone border-0"
+                                                    value="Add To Cart" style="padding: 0;">
+                                            </form>
+                                        {% endwith %}
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Products End -->
+
+    <!-- Vendor Start -->
+    <div class="container-fluid py-5">
+        <div class="row px-xl-5">
+            <div class="col">
+                <div class="owl-carousel vendor-carousel">
+                    {% for item in vendors %}
+                        {% if forloop.counter < 2 %}
+                            <div class="vendor-item border p-4">
+                                <img src="{{item.image.url}}" alt="{{item.name}}">
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Vendor End -->
+
+    {% endblock %}

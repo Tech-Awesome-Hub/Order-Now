@@ -1,0 +1,66 @@
+python-dotenv
+flask
+django
+
+
+class Order(models.Model):
+
+    STATUS_CHOICES = (
+        (0, 'Waiting Payment'),
+        (1, 'Completed'),
+        (2, 'Canceled'),
+    )
+
+    PAYMENT_OPTION_CHOICES = (
+        ('deposit', 'deposit'),
+        ('paypal', 'Paypal'),
+    )
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='User')
+    status = models.IntegerField(
+        'Situation', choices=STATUS_CHOICES, default=0, blank=True
+    )
+    payment_option = models.CharField(
+        'Payment Options', choices=PAYMENT_OPTION_CHOICES, max_length=20,
+         default='deposit'
+    )
+
+    created = models.DateTimeField('Created in', auto_now_add=True)
+    modified = models.DateTimeField('Modified in', auto_now=True)
+
+    objects = OrderManager()
+
+    class Meta:
+        verbose_name = 'Order'
+        ordering = ('-created',)
+
+    def __str__(self):
+        return 'Order #{}'.format(self.pk)
+
+    def products(self):
+        products_ids = self.items.values_list('product')
+        return Product.objects.filter(pk__in=products_ids)
+
+    def total(self):
+        aggregate_queryset = self.items.aggregate(
+            total = models.Sum(
+                models.F('price') * models.F('quantity'),
+                output_field = models.DecimalField()
+            )
+        )
+        return aggregate_queryset['total']
+
+
+
+class OrderItem(models.Model):
+
+    order = models.ForeignKey(Order, verbose_name='Order',     related_name='items')
+    product = models.ForeignKey('event.Product', verbose_name='Product')
+    quantity = models.PositiveIntegerField('Quantity', default=1)
+    price = models.DecimalField('Price', decimal_places=2, max_digits=8)
+
+    class Meta:
+        verbose_name = 'Order Item'
+
+    def __str__(self):
+        return '{}'.format(self.product)

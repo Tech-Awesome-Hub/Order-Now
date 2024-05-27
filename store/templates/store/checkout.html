@@ -1,0 +1,182 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+{% load sub_category %}
+{% load cart %}
+{% load custom_filter %}
+{% load static %}
+
+     <!-- Navbar Start -->
+    <div class="container-fluid nav-box">
+        <div class="row px-xl-5">
+            <div class="col-lg-3 d-none d-lg-block" id="categories">
+                <span class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 55px; margin-top: -1px; padding: 0 30px;">
+                    <h6 class="m-0"  style="color: white;">Categories</h6>
+                    <i class="fa fa-angle-down text-white"></i>
+                </span>
+                <nav class=" bg-white m-0 collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 9999;">
+                    <div class="navbar-nav w-100 overflow-hidden" style="height: 470px;">
+                        {% for item in categories %}
+                           <a href="/shop?category={{item.id}}" class="nav-item nav-link"><i class="{{item.icon}}"></i><span class="ml-3" style="font-size: 12px;">{{item.name}}</span></a>
+                        {% endfor %}                  
+                    </div>
+                </nav>
+            </div>
+            <div class="col-lg-9">
+                <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-3 hide-large">
+                    <a href="index.html" class="text-decoration-none">
+                        <h1 class="m-0 d-flex flex-row font-weight-semi-bold align-items-center">
+                            <span class="p-0 text-orange d-flex align-items-center justify-content-center mr-3" style="width: 30px; height: 40px; border-radius: 100%;">O</span>
+                            <span class="org-2">OrderNow</span>
+                        </h1>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto py-0">
+                            <a href="index.html" class="nav-item nav-link badge-phone active">Home</a>
+                            <a href="shop.html" class="nav-item nav-link badge-phone">Shop</a>                           
+                            <a href="contact.html" class="nav-item nav-link badge-phone">Contact</a>
+                            <a href="login.html" class="nav-item nav-link badge-phone">Login</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+     <!-- Navbar End -->
+ 
+     <!-- Page Header Start -->
+     <div class="container-fluid bg-transparent mb-5 hide-small">
+         <div class="d-flex flex-column align-items-center justify-content-center our-shop" style="min-height: 100px">
+             <h1 class="font-weight-semi-bold text-uppercase mb-3 font-phone-title-2">Checkout</h1>
+             <div class="d-inline-flex">
+                 <p class="m-0"><a href="{% url 'store:cart' %}">Back to cart</a></p>
+                 <p class="m-0 px-2">-</p>
+                 <p class="m-0">Checkout</p>
+             </div>
+         </div>
+     </div>
+     <!-- Page Header End -->
+
+    <!-- Checkout Start -->
+    <div class="container-fluid pt-3">
+        <div class="row px-xl-5">
+            <div class="col-lg-8">
+                <div class="mb-4">
+                    <div class="card-header bg-purple-light border-0 d-flex flex-row align-items-center justify-content-between" style="width: 99.5%;">
+                        <h4 class="font-weight-semi-bold m-0 text-white font-phone-title">Billing Address</h4>
+                        <a href="#bill-box" data-toggle="collapse" class="hide-large"><i class="fa fa-angle-down text-white"></i></a>
+                    </div>
+                    <div class="row bg-white ml-0 mr-1 bill-box overflow-hidden hide" id="bill-box" style="height: 0px;">
+                        <div class="col-md-6 form-group bb-name-box">
+                            <label>Full Name</label>
+                            <input class="form-control" type="text" placeholder="John Doe">
+                        </div>
+                        <div class="col-md-6 form-group bb-name-box">
+                            <label>Mobile No</label>
+                            <input class="form-control" name="phone" type="text" placeholder="0548500238" value="{{phone}}">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Address Line 1</label>
+                            <input class="form-control" type="text" placeholder="Nsawam, Adoagyiri" value="address-1">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Address Line 2</label>
+                            <input class="form-control" type="text" placeholder="123 Street" value="address-2">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Shipping Area</label>
+                            <select class="custom-select">
+                                <option Selected>No Address</option>
+                                {% if locations %}
+                                  {% for location in locations %}
+                                    <option >{{location.name}}</option>
+                                  {% endfor %}
+                                {% endif %}
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-12 form-group">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" name="save_address" id="save_address">
+                                <label class="custom-control-label" for="save_address">Save Address</label>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card border-secondary mb-5">
+                    <div class="card-header bg-purple-light border-0">
+                        <h4 class="font-weight-semi-bold m-0 text-white font-phone-title">Order Total</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="font-weight-semi-bold mb-3 font-phone-title-3">Products</h5>
+                        {% for product in products %}
+                            <div class="d-flex justify-content-between  font-phone-title-4">
+                                <p>{{product.name}}</p>
+                                <p>{{product.price}}</p>
+                            </div>
+                        {% endfor %}
+                        <hr class="mt-0">
+                        <div class="d-flex justify-content-between mb-3 pt-1">
+                            <h6 class="font-weight-medium">Subtotal</h6>
+                            <h6 class="font-weight-medium">{{products|sub_total:request.session.cart|currency}}</h6>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="font-weight-medium">Shipping</h6>
+                            <h6 class="font-weight-medium">{{products|shipping_total|currency}}</h6>
+                        </div>
+                    </div>
+                    <div class="card-footer border-secondary bg-transparent">
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5 class="font-weight-bold">Total</h5>
+                            <h5 class="font-weight-bold"><th>{{products|total_cart_price:request.session.cart|currency}}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card border-secondary mb-5">
+                    <div class="card-header bg-purple-light border-0">
+                        <h4 class="font-weight-semi-bold m-0 text-white font-phone-title">Payment</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="payment" id="momo">
+                                <label class="custom-control-label font-phone-title-4" for="momo">Momo</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="payment" id="pad">
+                                <label class="custom-control-label font-phone-title-4" for="pad">Pay After Delivery</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="payment" id="visa">
+                                <label class="custom-control-label font-phone-title-4" for="visa">Visa Card</label>
+                            </div>
+                        </div>
+                        <div class="">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" name="payment" id="banktransfer">
+                                <label class="custom-control-label font-phone-title-4" for="banktransfer">Bank Transfer</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer border-primary bg-transparent">
+                        <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3 font-phone-title">Place Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Checkout End -->
+
+{% endblock %}

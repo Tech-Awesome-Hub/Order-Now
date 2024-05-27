@@ -1,0 +1,72 @@
+{% extends 'store/base.html' %}
+
+
+{% block content %}
+{% load cart %}
+{% load custom_filter %}
+
+
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-transparent mb-0 nav-box">
+        <div class="d-flex flex-column align-items-center justify-content-center our-shop" style="min-height: 100px">
+            <h1 class="font-weight-semi-bold text-uppercase mb-3 font-phone-title-2">ORDERS</h1>
+            <div class="d-inline-flex">
+                <p class="m-0"><a href="/">Home</a></p>
+                <p class="m-0 px-2">-</p>
+                <p class="m-0"><a href="/shop">Shop</a></p>
+                <p class="m-0 px-2">-</p>
+                <p class="m-0">Orders</p>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+<div class="container">
+   <div class="rounded p-1 m-4">
+      
+        <!-- Orders Start -->
+            <div class="col-lg-12 table-responsive mb-3">
+                <table class="table table-bordered text-center mb-0 bg-white m-0">
+                    <thead class="bg-primary text-white">
+                        <tr>
+                            <th>Sno.</th>
+                            <th>Image</th>
+                            <th>Product</th>
+                            <th>Date</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                        {% if orders %}
+                            {% for order in orders %}
+                                <tr>
+                                    <td class="align-middle">{{forloop.counter}}</td>
+                                    <td class="align-middle"><img src="{{order.product.image}}" alt="" style="width: 50px; margin-right: 3px;"></td>
+                                    <td class="align-middle">{{order.product.name}}</td>
+                                    <td class="align-middle">{{order.date}}</td>
+                                    <td class="align-middle">{{order.price|currency}}</td>
+                                    <td class="align-middle">{{order.quantity}}</td>
+                                    <td class="align-middle">{{order.quantity|multiply:order.price|currency}}</td>
+                                    {% if order.status %}
+                                    <td class="align-middle"><small class="badge badge-success">Completed</small></td>
+                                    {%else%}
+                                    <td class="align-middle"><small class="badge badge-warning">Pending</small></td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}    
+                        {% endif %}    
+                    </tbody>
+                </table>
+            </div>
+       
+   </div>
+</div>
+
+
+
+
+
+{% endblock %}
