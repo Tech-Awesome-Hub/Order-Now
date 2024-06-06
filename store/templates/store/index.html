@@ -26,8 +26,8 @@
                 <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 hide-large">
                     <a href="{% url 'store:store' %}" class="text-decoration-none">
                         <h1 class="m-0 d-flex flex-row font-weight-semi-bold align-items-center">
-                            <span class="p-0 text-orange d-flex align-items-center justify-content-center mr-3" style="width: 30px; height: 40px; border-radius: 100%;">O</span>
-                            <span class="org-2">ABuy</span>
+                            <span class="p-0 text-orange d-flex align-items-center justify-content-center mr-3" style="width: 30px; height: 40px; border-radius: 100%;">A</span>
+                            <span class="org-2"></span>
                         </h1>
                     </a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -177,30 +177,29 @@
                 {% for item in products %}
                    {% if item.type.name == 'Trandy' %}
                         <div class="col-lg-2 col-md-4 col-sm-12 pb-2">
-                            <a href="{% url 'store:detail' item.id %}">
-                                <div class="card product-item border-0 bg-white m-0">
+                                <a href="{% url 'store:detail' item.id %}">
                                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                        <img class="img-fluid shop w-100" src="{{item.image}}" alt="">
+                                        <img class="img-fluid shop w-100" src="{{item.image}}" alt="{{item.alt}}">
                                     </div>
                                     <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                                         <h6 class="text-truncate mb-3 font-phone">{{item.name}}</h6>
                                         <div class="d-flex justify-content-center">
-                                            <h6>{{item.price|currency}}</h6><h6 class="text-muted ml-2"><del>{{item.price|currency}}</del></h6>
+                                            <h6>{{item.price}}</h6><h6 class="text-muted ml-2"><del>{{item.old_price}}</del></h6>
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between bg-light border hide-small">     
-                                        {% with form_url=item.id %}
-                                            <form action="#{{form_url}}" method="POST" class="btn-block" id="form-add-to-cart">
+                                            <form action="#{{item.id}}" method="POST" id="form-add-to-cart" class="btn-block form-add-to-cart">
                                                 {% csrf_token %}
+                                                <input hidden type="text" name='remove' value='False'>
+                                                <input hidden type="text" name='add' value='False'>
                                                 <input hidden type="text" name='product' value='{{item.id}}'>
                                                 <input type="submit" class="float-right btn btn-success form-control bg-orange badge-phone border-0"
                                                     value="Add To Cart" style="padding: 0;">
                                             </form>
-                                        {% endwith %}
                                     </div>
-                                </div>
-                            </a>
-                        </div>
+                                </a>
+                            </div>
+                                
                     {% endif %}
                 {% endfor %}
             </div>
@@ -232,14 +231,14 @@
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between bg-light border hide-small">     
-                                        {% with form_url=item.id %}
-                                            <form action="#{{form_url}}" method="POST" class="btn-block"  id="form-add-to-cart">
-                                                {% csrf_token %}
-                                                <input hidden type="text" name='product' value='{{item.id}}'>
-                                                <input type="submit" class="float-right btn btn-success form-control bg-orange badge-phone border-0"
-                                                    value="Add To Cart" style="padding: 0;">
-                                            </form>
-                                        {% endwith %}
+                                        <form action="#{{item.id}}" method="POST" class="form-add-to-cart" class="btn-block">
+                                            {% csrf_token %}
+                                            <input hidden type="text" name='remove' value='False'>
+                                            <input hidden type="text" name='add' value='False'>
+                                            <input hidden type="text" name='product' value='{{item.id}}'>
+                                            <input type="submit" class="float-right btn btn-success form-control bg-orange badge-phone border-0"
+                                                value="Add To Cart" style="padding: 0;">
+                                        </form>
                                     </div>
                                 </div>
                             </a>
@@ -275,14 +274,14 @@
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between bg-light border hide-small">     
-                                        {% with form_url=item.id %}
-                                            <form action="#{{form_url}}" method="POST" class="btn-block" id="form-add-to-cart">
-                                                {% csrf_token %}
-                                                <input hidden type="text" name='product' value='{{item.id}}'>
-                                                <input type="submit" class="float-right btn btn-success form-control bg-orange badge-phone border-0"
-                                                    value="Add To Cart" style="padding: 0;">
-                                            </form>
-                                        {% endwith %}
+                                        <form action="#{{item.id}}" method="POST" class="form-add-to-cart" class="btn-block">
+                                            {% csrf_token %}
+                                            <input hidden type="text" name='remove' value='False'>
+                                            <input hidden type="text" name='add' value='False'>
+                                            <input hidden type="text" name='product' value='{{item.id}}'>
+                                            <input type="submit" class="float-right btn btn-success form-control bg-orange badge-phone border-0"
+                                                value="Add To Cart" style="padding: 0;">
+                                        </form>
                                     </div>
                                 </div>
                             </a>
@@ -318,14 +317,14 @@
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between bg-light border hide-small">     
-                                        {% with form_url=item.id %}
-                                            <form action="#{{form_url}}" method="POST" class="btn-block" id="form-add-to-cart">
-                                                {% csrf_token %}
-                                                <input hidden type="text" name='product' value='{{item.id}}'>
-                                                <input type="submit" class="float-right btn btn-success form-control bg-orange badge-phone border-0"
-                                                    value="Add To Cart" style="padding: 0;">
-                                            </form>
-                                        {% endwith %}
+                                        <form action="#{{item.id}}" method="POST" class="form-add-to-cart" class="btn-block">
+                                            {% csrf_token %}
+                                            <input hidden type="text" name='remove' value='False'>
+                                            <input hidden type="text" name='add' value='False'>
+                                            <input hidden type="text" name='product' value='{{item.id}}'>
+                                            <input type="submit" class="float-right btn btn-success form-control bg-orange badge-phone border-0"
+                                                value="Add To Cart" style="padding: 0;">
+                                        </form>
                                     </div>
                                 </div>
                             </a>

@@ -7,13 +7,25 @@ from store.models.product_type import ProductType
 from store.models.offer import Offer
 from store.models.cart import add_to_cart, update_cart
 from django.views import View
- 
+
+from django.http import HttpResponse, JsonResponse
+# from rest_framework.parsers import JSONParser
+# from store.serializers import ProductSerializer
+# from store.serializers import CategorySerializer
+# from store.serializers import SubCategoryProductSerializer
+
  
 # Create your views here.
 class IndexView(View):
 
     def get(self, request):
         return HttpResponseRedirect(f'/store{request.get_full_path()[1:]}')
+    
+    def post(self , request, product_id):
+        product = request.POST.get('product')
+        remove = request.POST.get('remove')
+        add = request.POST.get('add')
+        cart = request.session.get('cart')
 
 def addCart(request):
         
@@ -46,7 +58,14 @@ def addCart(request):
                 add_to_cart(request=request, cart=cart)
 
             request.session['cart'] = cart
- 
+
+def cart_quantity(product_id, cart):
+    keys = cart.keys ()
+    for id in keys:
+        if int (id) == product_id:
+            return cart.get (id)
+    return 0;
+
 def store(request):
 
     addCart(request)
@@ -67,14 +86,22 @@ def store(request):
         products = Product.get_all_products_by_categoryid(categoryID)
     else:
         products = Product.get_all_products()
+    
+    if request.method == 'GET':
+        data = {}
+        data['products'] = products
+        data['categories'] = categories
+        data['vendors'] = vendors
+        data['sub_categories'] = sub_categories
+        data['types'] = types
+        data['offers'] = offers
 
-    data = {}
-    data['products'] = products
-    data['categories'] = categories
-    data['vendors'] = vendors
-    data['sub_categories'] = sub_categories
-    data['types'] = types
-    data['offers'] = offers
-
-    print('you are : ', request.session.get('email'))
-    return render(request, 'store/index.html', data)
+        print('you are : ', request.session.get('email'))
+        print('you are : ', request.method)
+        return render(request, 'store/index.html', data)
+    else:
+            data = {
+                'quantity': cart_quantity(request.session.get('product'), cart),
+                'len': len(cart.keys())
+            }
+            return JsonResponse(data, safe=False)

@@ -7,10 +7,10 @@ from store.models.cart import add_to_cart, update_cart
 from django.views import View
 
 from django.http import HttpResponse, JsonResponse
-from rest_framework.parsers import JSONParser
-from store.serializers import ProductSerializer
-from store.serializers import CategorySerializer
-from store.serializers import SubCategoryProductSerializer
+# from rest_framework.parsers import JSONParser
+# from store.serializers import ProductSerializer
+# from store.serializers import CategorySerializer
+# from store.serializers import SubCategoryProductSerializer
 
 class DetailView(View):
 

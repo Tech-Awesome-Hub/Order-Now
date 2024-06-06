@@ -388,11 +388,13 @@
         });
     });
     
-    $('#form-add-to-cart').on('submit', function(event) {
+    $('.form-add-to-cart').on('submit', function(event) {
         event.preventDefault(); 
 
         var formData = $(this).serialize();
         var action = $(this).attr('action');
+
+        console.log(formData)
 
         req('POST', action, formData, 'json',function(data){
             $("#cart-qty").text(parseInt(data.len));
